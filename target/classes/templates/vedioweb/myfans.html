@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <link rel="icon" href="asserts/vedioweb/assets/images/favicon.png">
+
+    <!-- CSS 
+    ================================================== -->
+    <link rel="stylesheet" href="asserts/vedioweb/assets/css/style.css">
+    <link rel="stylesheet" href="asserts/vedioweb/assets/css/framework.css">
+
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href="asserts/vedioweb/assets/css/icons.css">
+
+    <link rel="stylesheet" type="text/css" href="asserts/bilibili/test.css"/>
+
+    
+</head>
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- sidebar -->
+        <div th:replace="commons/mainbar::sidebar"></div>
+
+        <!-- header -->
+        <div th:replace="commons/mainbar::header"></div>
+
+
+        <!-- contents -->
+        <div class="main_content">
+            <div class="main_content_inner">
+                <div class="channal">
+                    <div class="channal-cover">
+                        <!-- channal cover -->
+                        <img th:src="@{${thisauthor.wallpaperUrl}}" alt="">
+                    </div>
+
+                    <div class="main_content_inner">
+                        <div class="channal-details">
+                            <div class="left-side">
+                                <div class="channal-image">
+                                    <a href="#">
+                                        <img th:src="@{${thisauthor.profilePicUrl}}" alt="">
+                                    </a>
+                                </div>
+                                <div class="channal-details-info">
+                                    <h3 th:text="${thisauthor.usernickname}"></h3>
+                                </div>
+                            </div>
+                            <div class="right-side">
+                                <div class="btn-subscribe">
+                                    <a href="#" class="button soft-warning"> <i class="icon-feather-plus"></i> subscribe</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="nav-channal" k-sticky="offset:61;media : @s">
+                            <nav class="responsive-tab">
+                                <ul>
+                                    <li><a th:href="@{/myhost}+${thisauthor.id}">相册</a></li>
+                                    <li class="uk-active"><a href="#0" class="active">关注</a></li>
+                                    <li><a href="#0">粉丝</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                        <div class="follow-content section">
+                            <div class="content" style="padding-bottom: 10px;">
+                                <ul class="relation-list">
+                                    <p class="nullfollow" style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}" ></p>
+                                    <li class="list-item clearfix" th:each="user:${allfans}">
+                                        <a th:href="@{/myhost}+${user.id}" target="_blank" class="cover">
+                                            <img th:src="${user.profilePicUrl}" alt="敖厂长">
+                                            <span data-user-auth="" title="个人认证" class="user-auth-subscript avatar-b personal-auth"></span>
+                                        </a>
+                                        <div class="content">
+                                            <a th:href="@{/myhost}+${user.id}" target="_blank" class="title">
+                                                <span class="vip-name-check fans-name this-is-vip" th:text="${user.usernickname}"></span>
+                                            </a>
+                                            <div class="fans-action">
+                                                <div class="be-dropdown fans-action-btn fans-action-follow">
+                                                    <span class="fans-action-text">已关注</span>
+                                                    <span class="icon icon-arrow"></span>
+                                                    <ul class="be-dropdown-menu menu-align-" style="left: 0px; top: 0px; transform-origin: center top; display: none;">
+                                                        <li class="be-dropdown-item">取消关注</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+            </div>
+
+
+    <!-- javaScripts
+                ================================================== -->
+    <script src="asserts/vedioweb/assets/js/framework.js"></script>
+    <script src="asserts/vedioweb/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="asserts/vedioweb/assets/js/simplebar.js"></script>
+    <script src="asserts/vedioweb/assets/js/main.js"></script>
+
+    <!--主体js-->
+    <script type="text/javascript">
+        document.querySelector('#sortable').sortablejs()
+    </script>
+
+</body>
+
+</html>

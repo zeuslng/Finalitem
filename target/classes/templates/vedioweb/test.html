@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script type="text/javascript" src="asserts/vedioweb/assets/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+
+        /* Ajax post */
+        $('#submitbt').click(function() {
+            var Username = $("#username").val();
+            $.post("ajax.action", {
+                username : Username,
+            }, function(data) {
+                //从后台传过来的数据
+                alert(data);
+            });
+        });
+        /* Ajax post */
+    });
+
+
+</script>
+<body>
+<form action="" method="post">
+    username<input type="text" name="username"  id="username" />
+    <input type="button"  value="Ajax" id="submitbt">
+</form>
+</body>
+<script type="text/javascript" src="asserts/comment/js/jquery-1.12.0.min.js"></script>
+<script type="text/javascript" src="asserts/comment/js/jquery.flexText.js"></script>
+
+</html>

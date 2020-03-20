@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <link rel="icon" href="asserts/vedioweb/assets/images/favicon.png">
+
+    <!-- CSS 
+    ================================================== -->
+    <link rel="stylesheet" href="asserts/vedioweb/assets/css/style.css">
+    <link rel="stylesheet" href="asserts/vedioweb/assets/css/framework.css">
+
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href="asserts/vedioweb/assets/css/icons.css">
+
+    <link rel="stylesheet" type="text/css" href="asserts/bilibili/test.css"/>
+
+    <link rel="stylesheet" href="asserts/css2/main.css">
+
+    <link rel="stylesheet" type="text/css" href="asserts/likecss/style.css">
+</head>
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- sidebar -->
+        <div th:replace="commons/mainbar::sidebar"></div>
+
+        <!-- header -->
+        <div th:replace="commons/mainbar::header"></div>
+
+
+        <!-- contents -->
+        <div class="main_content">
+        <div id="image_container" class="container">
+            <div class="flex">
+                <img th:src="@{${photo.url}}"/>
+            </div>
+            <div class="feed" id="feed1">
+                <div class="heart " id="like1" rel="like">
+                    <div class="likeCount" id="likeCount1">14</div>
+                </div>
+            </div>
+            <div class="card-infos">
+                <h2 class="card__title">Example 1</h2>
+                <p class="card__text">
+                    orem ipsum dolor sit amet, consectetur adipisicing elit.
+                </p>
+            </div>
+        </div>
+            <!--评论区域 begin-->
+            <div class="reviewArea clearfix">
+                <textarea id="mycomment" class="content comment-input" placeholder="Please enter a comment&hellip;"></textarea>
+                <a href="javascript:;" class="plBtn">评论</a>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+    <!-- javaScripts
+                ================================================== -->
+    <script src="asserts/vedioweb/assets/js/framework.js"></script>
+    <script src="asserts/vedioweb/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="asserts/vedioweb/assets/js/simplebar.js"></script>
+    <script src="asserts/vedioweb/assets/js/main.js"></script>
+
+
+    <!--pic big-->
+    <script src="asserts/dist/BigPicture.js"></script>
+    <script>
+        (function() {
+
+            function setClickHandler(id, fn) {
+                document.getElementById(id).onclick = fn;
+            }
+
+            setClickHandler('image_container', function(e) {
+                e.target.tagName === 'IMG' && BigPicture({
+                    el: e.target,
+                    imgSrc: e.target.src.replace('_thumb', '')
+                });
+            });
+
+            setClickHandler('local_image_container', function(e) {
+                (e.target.tagName === 'IMG' || e.target.className === 'background-image') &&
+                BigPicture({
+                    el: e.target
+                });
+            });
+
+            setClickHandler('video_container', function(e) {
+                var className = e.target.className;
+                ~className.indexOf('htmlvid') &&
+                BigPicture({
+                    el: e.target,
+                    vidSrc: e.target.getAttribute('vidSrc')
+                });
+                ~className.indexOf('vimeo') &&
+                BigPicture({
+                    el: e.target,
+                    vimeoSrc: e.target.getAttribute('vimeoSrc')
+                });
+                ~className.indexOf('youtube') &&
+                BigPicture({
+                    el: e.target,
+                    ytSrc: e.target.getAttribute('ytSrc')
+                });
+            })
+
+            setClickHandler('broken_container', function(e) {
+                e.target.id === 'broken_image' &&
+                BigPicture({
+                    el: e.target,
+                    imgSrc: '/nopic.jpg'
+                });
+                e.target.id === 'broken_vid' &&
+                BigPicture({
+                    el: e.target,
+                    vidSrc: '/novid.mp4'
+                });
+                ~e.target.className.indexOf('vimeo') &&
+                BigPicture({
+                    el: e.target,
+                    vimeoSrc: 'ajoiejlkr'
+                })
+                ~e.target.className.indexOf('youtube') &&
+                BigPicture({
+                    el: e.target,
+                    ytSrc: 'oijlksdjf'
+                })
+            });
+
+        })();
+    </script>
+
+    <!--like js-->
+    <script src="asserts/likejs/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function()
+        {
+
+            $('body').on("click",'.heart',function()
+            {
+
+                var A=$(this).attr("id");
+                var B=A.split("like");
+                var messageID=B[1];
+                var C=parseInt($("#likeCount"+messageID).html());
+                $(this).css("background-position","")
+                var D=$(this).attr("rel");
+
+                if(D === 'like')
+                {
+                    $("#likeCount"+messageID).html(C+1);
+                    $(this).addClass("heartAnimation").attr("rel","unlike");
+
+                }
+                else
+                {
+                    $("#likeCount"+messageID).html(C-1);
+                    $(this).removeClass("heartAnimation").attr("rel","like");
+                    $(this).css("background-position","left");
+                }
+
+
+            });
+
+
+        });
+    </script>
+
+    <!--点击评论创建评论条-->
+    <!--<script type="text/javascript">-->
+        <!--$('.commentAll').on('click','.plBtn',function(){-->
+            <!--var myDate = new Date();-->
+            <!--//获取当前年-->
+            <!--var year=myDate.getFullYear();-->
+            <!--//获取当前月-->
+            <!--var month=myDate.getMonth()+1;-->
+            <!--//获取当前日-->
+            <!--var date=myDate.getDate();-->
+            <!--var h=myDate.getHours();       //获取当前小时数(0-23)-->
+            <!--var m=myDate.getMinutes();     //获取当前分钟数(0-59)-->
+            <!--if(m<10) m = '0' + m;-->
+            <!--var s=myDate.getSeconds();-->
+            <!--if(s<10) s = '0' + s;-->
+            <!--//评论时间-->
+            <!--var nowtime = year+'-'+month+"-"+date+" "+h+':'+m+":"+s;-->
+            <!--//获取输入内容-->
+            <!--var mycomment = $(this).siblings('.flex-text-wrap').find('.comment-input').val();-->
+            <!--//获取评论人的id-->
+            <!--var myId = 1 //sessionStorage.getItem('userId');-->
+            <!--//获取被评论的照片的id-->
+            <!--var photo = '<%=request.getAttribute("photo") %>'-->
+            <!--console.log(photo)-->
+      <!--</script>-->
+</body>
+<link rel="stylesheet" href="asserts/comment/css/style.css">
+<link rel="stylesheet" href="asserts/comment/css/comment.css">
+<script type="text/javascript" src="asserts/comment/js/jquery-1.12.0.min.js"></script>
+<script type="text/javascript" src="asserts/comment/js/jquery.flexText.js"></script>
+</html>

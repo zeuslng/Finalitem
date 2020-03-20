@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <link rel="icon" href="asserts/vedioweb/assets/images/favicon.png">
+
+    <!-- CSS 
+    ================================================== -->
+    <link rel="stylesheet" href="asserts/vedioweb/assets/css/style.css">
+    <link rel="stylesheet" href="asserts/vedioweb/assets/css/night-mode.css">
+    <link rel="stylesheet" href="asserts/vedioweb/assets/css/framework.css">
+
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href="asserts/vedioweb/assets/css/icons.css">
+
+    <!-- Google font
+    ================================================== -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" type="text/css" href="asserts/css/demo.css"> 演示页面样式，使用时可以不引用 -->
+    <link rel="stylesheet" href="asserts/css/main.css">
+    <link rel="stylesheet" href="asserts/dist/sortable.min.css">
+    <script type="text/javascript" src="asserts/dist/sortable.min.js"></script>
+
+    
+</head>
+
+<body>
+<!-- Wrapper -->
+    <div id="wrapper">
+        <!-- sidebar -->
+        <div class="main_sidebar" th:fragment="sidebar">
+            <div class="side-overlay" uk-toggle="target: #wrapper ; cls: collapse-sidebar mobile-visible"></div>
+            <!-- sidebar header -->
+            <div class="sidebar-header">
+                <h4> Navigation</h4>
+                <span class="btn-close" uk-toggle="target: #wrapper ; cls: collapse-sidebar mobile-visible"></span>
+            </div>
+            <!-- sidebar Menu -->
+            <div class="sidebar">
+                <div class="sidebar_innr" data-simplebar>
+
+                    <div class="sections">
+                        <h3> Browse </h3>
+                        <ul>
+                            <li > <a href="community"> <i class="uil-home-alt"></i>社区</a></li>
+                          <!--  <li> <a href="browse-channals.html"> <i class="uil-users-alt"></i> 我的主页</a></li>
+                            <li> <a href="browse-catagroies.html"> <i class="uil-layers"></i> Catagories </a></li>-->
+                        </ul>
+                    </div>
+                        <div class="sections">
+                        <h3> PAGES </h3>
+                        <ul>
+                            <li> <a href="#"><i class="uil-user-circle"></i> Accounts </a>
+                                <ul>
+                                    <li>
+                                        <a href="tologin"> Login </a>
+                                        <a href="torigister"> Register </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- header -->
+        <div id="main_header" th:fragment="header">
+            <header>
+                <!-- Logo-->
+                <i class="header-traiger uil-bars"
+                    uk-toggle="target: #wrapper ; cls: collapse-sidebar mobile-visible"></i>
+                <!-- Logo-->
+                <div id="logo">
+                    <!--<a href="#"> <img src="asserts/vedioweb/assets/images/logo.png" alt=""></a>-->
+                    <!--<a href="#"> <img src="asserts/vedioweb/assets/images/logo-light.png" class="logo-inverse" alt=""></a>-->
+                    <!--<p th:text="${user.password}"></p>-->
+                </div>
+                <!-- form search-->
+                <div class="head_search">
+                    <form>
+                        <div class="head_search_cont">
+                            <input value="" type="text" class="form-control"
+                                placeholder="Search for Videos, Games, Movies and more.." autocomplete="off">
+                            <i class="s_icon uil-search-alt"></i>
+                        </div>
+                        <!-- Search box dropdown -->
+                        <div uk-dropdown="pos: top;mode:click;animation: uk-animation-slide-bottom-small" class="dropdown-search">
+                        </div>
+                    </form>
+                </div>
+                <!-- user icons -->
+                <div class="head_user">
+                    <a href="#" class="btn-upload uk-visible@s"> <i class="uil-cloud-upload"></i> Upload</a>
+                    <!-- upload dropdown box -->
+                    <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small"
+                        class="dropdown-notifications">
+                        <!-- notivication header -->
+                        <div class="dropdown-notifications-headline">
+                            <h4>Upload Photo</h4>
+                        </div>
+                        <!-- notification contents -->
+                        <div class="dropdown-notifications-content uk-flex uk-flex-middle uk-flex-center text-center">
+                            <div class="uk-flex uk-flex-column choose-upload  text-center">
+                                <img src="asserts/vedioweb/assets/images/upload.png" width="70" class="m-auto" alt="">
+                                <p class="my-3"> Do you have a photo wants to share us <br> please upload her ..
+                                </p>
+                                <div uk-form-custom>
+                                    <a th:href="@{/addphoto}" class="button soft-warning small"> Choose file</a>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="m-0">
+                    </div>
+                    <!-- profile -image -->
+                    <a class="opts_account"> <img src="asserts/vedioweb/assets/images/avatars/avatar-1.jpg" alt=""></a>
+                    <!-- profile dropdown-->
+                    <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small"
+                        class="dropdown-notifications small">
+                        <!-- User Name / Avatar -->
+                        <a href="#">
+                            <div class="dropdown-user-details">
+                                <div class="dropdown-user-avatar">
+                                    <img src="asserts/vedioweb/assets/images/avatars/avatar-1.jpg" alt="">
+                                </div>
+                                <div class="dropdown-user-name">
+                                    Richard Ali <span> verified <i class="uil-check"></i> </span>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- User menu -->
+                        <ul class="dropdown-user-menu">
+                            <li><a href="/myhost"> <i class="uil-user"></i> My Channal </a> </li>
+                            <li><a href="#"> <i class="icon-feather-help-circle"></i> Help</a></li>
+                            <li><a href="/tologout"> <i class="icon-feather-log-out"></i> Sing Out</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+        </div>
+    </div>
+
+
+<script type="text/javascript">
+
+</script>
+
+    <!-- javaScripts================================================== -->
+    <script src="asserts/vedioweb/assets/js/framework.js"></script>
+    <script src="asserts/vedioweb/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="asserts/vedioweb/assets/js/simplebar.js"></script>
+    <script src="asserts/vedioweb/assets/js/main.js"></script>
+    <!--Vue-->
+    <script src="asserts/Vue/vue.js"></script>
+    <!--主体js-->
+    <script type="text/javascript">
+        document.querySelector('#sortable').sortablejs()
+    </script>
+
+</body>
+
+</html>

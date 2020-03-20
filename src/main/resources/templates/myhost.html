@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <link rel="icon" href="asserts/vedioweb/assets/images/favicon.png">
+
+    <!-- CSS 
+    ================================================== -->
+    <link rel="stylesheet" href="asserts/vedioweb/assets/css/style.css">
+    <link rel="stylesheet" href="asserts/vedioweb/assets/css/framework.css">
+
+    <!-- icons
+    ================================================== -->
+    <link rel="stylesheet" href="asserts/vedioweb/assets/css/icons.css">
+
+    <link rel="stylesheet" type="text/css" href="asserts/bilibili/test.css"/>
+
+    <!-- <link rel="stylesheet" type="text/css" href="asserts/css/demo.css"> 演示页面样式，使用时可以不引用 -->
+    <link rel="stylesheet" href="asserts/css/main.css">
+    <link rel="stylesheet" href="asserts/dist/sortable.min.css">
+    <script type="text/javascript" src="asserts/dist/sortable.min.js"></script>
+
+    <!-- Google font================================================== -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- sidebar -->
+        <div th:replace="commons/mainbar::sidebar"></div>
+
+        <!-- header -->
+        <div th:replace="commons/mainbar::header"></div>
+
+
+        <!-- contents -->
+        <div class="main_content">
+            <div class="main_content_inner">
+                <div class="channal">
+                    <div class="channal-cover">
+                        <!-- channal cover -->
+                        <img th:src="@{${author.wallpaperUrl}}" alt="">
+                    </div>
+
+                    <div class="main_content_inner">
+                        <div class="channal-details">
+                            <div class="left-side">
+                                <div class="channal-image">
+                                    <a href="#">
+                                        <img th:src="@{${author.profilePicUrl}}" alt="">
+                                    </a>
+                                </div>
+                                <div class="channal-details-info">
+                                    <h3 th:text="${author.usernickname}"> </h3>
+                                </div>
+                            </div>
+                            <div class="right-side">
+                                <div class="btn-subscribe">
+                                    <a href="javascrpt:;" class="button soft-warning" id="subscribe"> <i class="icon-feather-plus"></i> subscribe</a>
+                                    <div id="currentuser" style="display: none">[[${session.LoginUser.id}]]</div>
+                                    <input id="thisUser" style="display: none;" th:value="${author.id}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="nav-channal" k-sticky="offset:61;media : @s">
+                            <nav class="responsive-tab">
+                                <ul>
+                                    <li class="uk-active"><a href="#0">相册</a></li>
+                                    <li><a th:href="@{/showmyfans}+${author.id}" class="active">关注</a></li>
+                                    <li><a href="#0">粉丝</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="wrapper">
+                    <div id="sortable" class="sjs-default">
+                        <div data-sjsel="flatty" th:each="photo:${photos}">
+                            <div class="card">
+                                <img class="card__picture" th:src="@{${photo.url}}" alt="">
+                                <div class="card-infos">
+                                    <p class="card__text">
+                                        <a th:href="@{/showonephoto}+${photo.id}">orem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+                </div>
+
+            </div>
+
+
+    <!-- javaScripts
+                ================================================== -->
+    <script src="asserts/vedioweb/assets/js/framework.js"></script>
+    <script src="asserts/vedioweb/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="asserts/vedioweb/assets/js/simplebar.js"></script>
+    <script src="asserts/vedioweb/assets/js/main.js"></script>
+    <!--主体js-->
+    <script type="text/javascript">
+        document.querySelector('#sortable').sortablejs()
+    </script>
+
+    <!--关注操作-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#subscribe').on('click',function () {
+                //获取被关注用户id
+                let thisUser=$('#thisUser').val()
+                //获取当前用户id
+                let currentUser=$('#currentuser').text()
+                console.log(thisUser+currentUser)
+                //后台交互
+                $.post("/doSubscirbe",{"thisUser":thisUser,"currentUser":currentUser},
+                    function (data) {
+                        if(data){
+                            alert("关注成功！")
+                        }else{
+                            alert("您已经关注该用户！")
+                        }
+                    })
+            })
+        })
+    </script>
+    <script type="text/javascript" src="asserts/comment/js/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="asserts/comment/js/jquery.flexText.js"></script>
+</body>
+
+</html>
